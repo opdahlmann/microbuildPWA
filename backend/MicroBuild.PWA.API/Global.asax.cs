@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MicroBuild.PWA.Mongo;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -12,6 +14,24 @@ namespace MicroBuild.PWA.API
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            MongoConfiguration dataConfiguration = new MongoConfiguration();
+            dataConfiguration.Configure();
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+            //HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
+
+            if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
+            {
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", ConfigurationManager.AppSettings.Get("AccessControlAllowMethods"));
+
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", ConfigurationManager.AppSettings.Get("AccessControlAllowHeaders"));
+                HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", ConfigurationManager.AppSettings.Get("AccessControlMaxAge"));
+
+                HttpContext.Current.Response.End();
+            }
         }
     }
 }

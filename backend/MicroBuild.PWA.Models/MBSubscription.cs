@@ -1,4 +1,5 @@
-﻿using MicroBuild.Infrastructure.Models;
+﻿using Lib.Net.Http.WebPush;
+using MicroBuild.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace MicroBuild.PWA.Models
     public class MBSubscription : IEntity
     {
         public string Id { get; set; }
+        public PushSubscription PushSubscription { get; set; }
     }
 }

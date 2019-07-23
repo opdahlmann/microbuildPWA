@@ -31,10 +31,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.1.3\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Lib.Net.Http.EncryptedContentEncoding, Version=2.0.0.0, Culture=neutral, PublicKeyToken=201801898d7264f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Net.Http.EncryptedContentEncoding.2.0.0\lib\net451\Lib.Net.Http.EncryptedContentEncoding.dll</HintPath>
+    </Reference>
+    <Reference Include="Lib.Net.Http.WebPush, Version=2.2.0.0, Culture=neutral, PublicKeyToken=741479727c65335c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Net.Http.WebPush.2.2.0\lib\net451\Lib.Net.Http.WebPush.dll</HintPath>
+    </Reference>
     <Reference Include="MicroBuild.Infrastructure.Models">
       <HintPath>..\lib\MicroBuild.Infrastructure.Models.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,6 +58,9 @@
   <ItemGroup>
     <Compile Include="MBSubscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

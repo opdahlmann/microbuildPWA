@@ -27,7 +27,7 @@ namespace MicroBuild.Management.Domain.Services
             var result = await this.DataUnitOfWork.SubscriptionRepository.AddSubscription(subscription);
             if (result != null)
             {
-                this.ObjectLocator.NotificationService.SendNotificationsAsync();
+                await this.ObjectLocator.NotificationService.SendNotificationsAsync();
                 return true;
             }
             return false;

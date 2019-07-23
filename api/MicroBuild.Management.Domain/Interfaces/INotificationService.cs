@@ -9,7 +9,7 @@ namespace MicroBuild.Management.Domain.Interfaces
 {
     public interface INotificationService
     {
-        void SendNotificationsAsync();
+        Task SendNotificationsAsync();
 
     }
 }

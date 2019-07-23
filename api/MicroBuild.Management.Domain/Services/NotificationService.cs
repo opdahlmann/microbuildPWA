@@ -84,13 +84,20 @@ namespace MicroBuild.Management.Domain.Services
                 TimeToLive = timeToLive,
                 Urgency = urgency
             };
-
+            try { 
             var allSupscriptions = await _subscriptionsService.getAllSubscriptions();
-            foreach (MBPushSubscription subscription in allSupscriptions)
-            {
-                // fire-and-forget
-              await _pushClient.RequestPushMessageDeliveryAsync(subscription.PushSubscription, notification);
+            
+                foreach (MBPushSubscription subscription in allSupscriptions)
+                {
+                    // fire-and-forget
+                    await _pushClient.RequestPushMessageDeliveryAsync(subscription.PushSubscription, notification);
+                }
             }
+            catch(Exception e)
+            {
+
+            }
+           
         }
 
     }

@@ -69,5 +69,9 @@ namespace MicroBuild.Management.Domain.Interfaces
         IMessageService MessageService { get; }
 
         IIssueMessageService IssueMessageService { get; }
+
+        ISubscriptionService SubscriptionService { get; }
+
+        INotificationService NotificationService { get; }
     }
 }

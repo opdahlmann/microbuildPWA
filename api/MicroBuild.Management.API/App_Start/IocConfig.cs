@@ -87,6 +87,12 @@ namespace MicroBuild.Management.API.App_Start
 
             containerBuilder.RegisterType<LogService>().InstancePerRequest();
             containerBuilder.RegisterType<LogService>().As<ILogService>().InstancePerRequest();
+
+            containerBuilder.RegisterType<SubscriptionService>().InstancePerRequest();
+            containerBuilder.RegisterType<SubscriptionService>().As<ISubscriptionService>().InstancePerRequest();
+
+            containerBuilder.RegisterType<NotificationService>().InstancePerRequest();
+            containerBuilder.RegisterType<NotificationService>().As<INotificationService>().InstancePerRequest();
             /* Request context */
 
             containerBuilder.RegisterHttpRequestMessage(GlobalConfiguration.Configuration);

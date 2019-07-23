@@ -27,5 +27,7 @@
         
         IMessageRepository MessageRepository { get; }
         IIssueMessageRepository IssueMessageRepository { get; }
+
+        ISubscriptionRepository SubscriptionRepository { get; }
     }
 }

@@ -139,5 +139,13 @@ namespace MicroBuild.Management.Data.Mongo
                 return new IssueMessageRepository();
             }
         }
+
+        public ISubscriptionRepository SubscriptionRepository
+        {
+            get
+            {
+                return new SubscriptionRepository();
+            }
+        }
     }
 }

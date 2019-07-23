@@ -301,5 +301,21 @@ namespace MicroBuild.Management.Domain
                 return new IssueMessageService(dataUnitOfWork, this);
             }
         }
+
+        public ISubscriptionService SubscriptionService
+        {
+            get
+            {
+                return new SubscriptionService(dataUnitOfWork, this);
+            }
+        }
+
+        public INotificationService NotificationService
+        {
+            get
+            {
+                return new NotificationService(dataUnitOfWork, this);
+            }
+        }
     }
 }

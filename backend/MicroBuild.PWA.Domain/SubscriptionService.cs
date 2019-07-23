@@ -1,4 +1,5 @@
-﻿using MicroBuild.PWA.Models;
+﻿using Lib.Net.Http.WebPush;
+using MicroBuild.PWA.Models;
 using MicroBuild.PWA.Mongo;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace MicroBuild.PWA.Domain
     public class SubscriptionService
     {
         private MBSubscriptionRepo supscriptionRepo;
+       
         public SubscriptionService()
         {
             this.supscriptionRepo = new MBSubscriptionRepo();
+           
         }
 
         public async Task<bool> AddSubscription(MBSubscription subscription)
@@ -21,9 +24,15 @@ namespace MicroBuild.PWA.Domain
             var result = await this.supscriptionRepo.AddSubscription(subscription);
             if (result != null)
             {
+                NotificationService notificationClient = new NotificationService(new PushServiceClient());
+                await notificationClient.SendNotificationsAsync();
                 return true;
             }
             return false;
+        }
+        public async Task<List<MBSubscription>> getAllSubscriptions()
+        {
+            return await this.supscriptionRepo.GetAllSubscriptionsAsync();
         }
     }
 }

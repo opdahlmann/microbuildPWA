@@ -13,5 +13,9 @@ namespace MicroBuild.PWA.Mongo
         {
             return await GenericRepository.Add(subscription);
         }
+        public async Task<List<MBSubscription>> GetAllSubscriptionsAsync()
+        {
+            return await GenericRepository.GetAll();
+        }
     }
 }

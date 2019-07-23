@@ -56,8 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AngularPushNotification.cs" />
     <Compile Include="MBSubscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushNotificationOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

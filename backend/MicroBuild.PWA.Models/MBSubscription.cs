@@ -10,7 +10,12 @@ namespace MicroBuild.PWA.Models
 {
     public class MBSubscription : IEntity
     {
+        //public string Id { get; set; }
+        //public PushSubscription PushSubscription { get; set; }
         public string Id { get; set; }
-        public PushSubscription PushSubscription { get; set; }
+
+        public string Endpoint { get; set; }
+
+        public IDictionary<string, string> Keys { get; set; }
     }
 }

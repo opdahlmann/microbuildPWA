@@ -24,8 +24,15 @@ namespace MicroBuild.PWA.Domain
             var result = await this.supscriptionRepo.AddSubscription(subscription);
             if (result != null)
             {
-                NotificationService notificationClient = new NotificationService(new PushServiceClient());
-                await notificationClient.SendNotificationsAsync();
+                try
+                {
+                    NotificationService notificationClient = new NotificationService();
+                    await notificationClient.SendNotificationAsync();
+                } catch(Exception e)
+                {
+
+                }
+              
                 return true;
             }
             return false;

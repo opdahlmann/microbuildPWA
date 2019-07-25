@@ -14,6 +14,7 @@ namespace MicroBuild.PWA.API.Controllers
 {
     public class SubscriptionController : ApiController
     {
+        //this is used with lib.net.http.webpush library.
         //[HttpPost]
         //[Route("subscriptions")]
 

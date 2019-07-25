@@ -15,6 +15,7 @@ export class AppComponent {
     private notificationService:NotificationService
   ){
     this.installservice.init();
+    
   }
   ngOnInit(){
 
@@ -26,7 +27,7 @@ export class AppComponent {
   }
 
   subscribeNotification(){
-this.notificationService.subscribeToNotification();
+  this.notificationService.subscribeToNotification();
   }
 
 }

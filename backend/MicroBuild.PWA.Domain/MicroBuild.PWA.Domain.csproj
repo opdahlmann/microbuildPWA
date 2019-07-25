@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NotificationService.cs" />
+    <Compile Include="PushNotificationPayload.cs" />
     <Compile Include="SubscriptionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

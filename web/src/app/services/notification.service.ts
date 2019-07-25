@@ -24,4 +24,6 @@ export class NotificationService {
     this.http.post(environment.API_BASE, params).subscribe();
     console.log('success');
   }
+
+  
 }

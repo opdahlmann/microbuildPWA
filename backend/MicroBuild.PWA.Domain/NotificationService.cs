@@ -13,6 +13,12 @@ namespace MicroBuild.PWA.Domain
 {
     public class NotificationService
     {
+        private const string WRAPPER_START = "{\"notification\":";
+        private const string WRAPPER_END = "}";
+        private static readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
+        };
 
         private readonly PushNotificationOptions options;
         private readonly WebPushClient _pushClient;
@@ -35,14 +41,13 @@ namespace MicroBuild.PWA.Domain
 
         public async Task SendNotificationAsync()
         {
-            AngularPushNotification _notification = new AngularPushNotification
+            var payload = new PushNotificationPayload
             {
-                Title = "Test Notification",
-                Body = $"This is test notification",
-                Icon = ""
+                Msg = "Thank you for subscribing",
+                Icon = "[URL to an image to display in the notification]"
             };
-
             
+            var vapidDetails = new VapidDetails(options.Subject, options.PublicKey, options.PrivateKey);
             var allSupscriptions = await _subscriptionsService.getAllSubscriptions();
 
             foreach (MBSubscription subscription in allSupscriptions)
@@ -54,7 +59,7 @@ namespace MicroBuild.PWA.Domain
                    subscription.Keys["p256dh"],
                    subscription.Keys["auth"]);
 
-                    _pushClient.SendNotification(webPushSubscription, JsonConvert.SerializeObject(_notification));
+                   _pushClient.SendNotification(webPushSubscription, "abc",vapidDetails);
                 }catch (WebPushException e)
                 {
 
@@ -64,30 +69,7 @@ namespace MicroBuild.PWA.Domain
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //this is used with lib.net.http.webpush library.
         //private SubscriptionService _subscriptionsService;
         //private PushServiceClient _pushClient;
         //private const string WRAPPER_START = "{\"notification\":";

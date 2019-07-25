@@ -49,8 +49,11 @@
             ],
             "styles": [
               "src/styles.sass"
+              
             ],
-            "scripts": []
+            "scripts": [
+             
+            ]
           },
           "configurations": {
             "production": {
@@ -142,6 +145,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "pwa"
 }

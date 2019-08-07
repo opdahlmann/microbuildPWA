@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from 'src/app/component/home/home.component';
+import { NotificationComponent } from 'src/app/component/notification/notification.component';
 
 
 const routes: Routes = [
-  { path: "", component: HomeComponent },
-
+  { path: "", component: NotificationComponent },
 ];
 
 @NgModule({

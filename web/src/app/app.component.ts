@@ -11,23 +11,23 @@ export class AppComponent {
   title = 'pwa';
 
   constructor(
-    private installservice: InstallationService,
-    private notificationService:NotificationService
+    // private installservice: InstallationService,
+    // private notificationService:NotificationService
   ){
-    this.installservice.init();
+    //this.installservice.init();
     
   }
   ngOnInit(){
 
   }
 
-  install(){
+  // install(){
    
-    this.installservice.install();
-  }
+  //   this.installservice.install();
+  // }
 
-  subscribeNotification(){
-  this.notificationService.subscribeToNotification();
-  }
+  // subscribeNotification(){
+  // this.notificationService.subscribeToNotification();
+  // }
 
 }

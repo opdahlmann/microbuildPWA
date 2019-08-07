@@ -1,4 +1,6 @@
-﻿using MicroBuild.PWA.Models;
+﻿using Lib.Net.Http.WebPush;
+using Lib.Net.Http.WebPush.Authentication;
+using MicroBuild.PWA.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -13,131 +15,132 @@ namespace MicroBuild.PWA.Domain
 {
     public class NotificationService
     {
-        private const string WRAPPER_START = "{\"notification\":";
-        private const string WRAPPER_END = "}";
-        private static readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
-        {
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
-        };
-
-        private readonly PushNotificationOptions options;
-        private readonly WebPushClient _pushClient;
-        private SubscriptionService _subscriptionsService;
-        public NotificationService()
-        {
-            options = new PushNotificationOptions()
-            {
-                PublicKey = ConfigurationManager.AppSettings["Publickey"],
-                PrivateKey = ConfigurationManager.AppSettings["PrivateKey"],
-                Subject = "https://angular-aspnetmvc-pushnotifications.demo.io"
-            };
-
-            _subscriptionsService = new SubscriptionService();
-            _pushClient = new WebPushClient();
-
-            _pushClient.SetVapidDetails(options.Subject, options.PublicKey, options.PrivateKey);
-
-        }
-
-        public async Task SendNotificationAsync()
-        {
-            var payload = new PushNotificationPayload
-            {
-                Msg = "Thank you for subscribing",
-                Icon = "[URL to an image to display in the notification]"
-            };
-            
-            var vapidDetails = new VapidDetails(options.Subject, options.PublicKey, options.PrivateKey);
-            var allSupscriptions = await _subscriptionsService.getAllSubscriptions();
-
-            foreach (MBSubscription subscription in allSupscriptions)
-            {
-                try
-                {
-                    var webPushSubscription = new PushSubscription(
-                   subscription.Endpoint,
-                   subscription.Keys["p256dh"],
-                   subscription.Keys["auth"]);
-
-                   _pushClient.SendNotification(webPushSubscription, "abc",vapidDetails);
-                }catch (WebPushException e)
-                {
-
-                }
-               
-            }
-        }
-
-
-        //this is used with lib.net.http.webpush library.
-        //private SubscriptionService _subscriptionsService;
-        //private PushServiceClient _pushClient;
+        //this is used with library.
         //private const string WRAPPER_START = "{\"notification\":";
         //private const string WRAPPER_END = "}";
         //private static readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
         //{
         //    ContractResolver = new CamelCasePropertyNamesContractResolver()
         //};
-        //PushNotificationOptions options;
 
-        //public NotificationService(PushServiceClient pushClient)
+        //private readonly PushNotificationOptions options;
+        //private readonly WebPushClient _pushClient;
+        //private SubscriptionService _subscriptionsService;
+        //public NotificationService()
         //{
-        //     options = new PushNotificationOptions()
+        //    options = new PushNotificationOptions()
         //    {
-        //        PublicKey =ConfigurationManager.AppSettings["Publickey"],
-        //        PrivateKey = ConfigurationManager.AppSettings["PrivateKey"]
+        //        PublicKey = ConfigurationManager.AppSettings["Publickey"],
+        //        PrivateKey = ConfigurationManager.AppSettings["PrivateKey"],
+        //        Subject = "https://angular-aspnetmvc-pushnotifications.demo.io"
         //    };
 
         //    _subscriptionsService = new SubscriptionService();
-        //    _pushClient = pushClient;
+        //    _pushClient = new WebPushClient();
 
-        //    _pushClient.DefaultAuthentication = new VapidAuthentication(options.PublicKey, options.PrivateKey)
-        //    {
-        //        Subject = "https://angular-aspnetmvc-pushnotifications.demo.io"
-        //    };
+        //    _pushClient.SetVapidDetails(options.Subject, options.PublicKey, options.PrivateKey);
+
         //}
 
-        //public async Task SendNotificationsAsync()
+        //public async Task SendNotificationAsync()
         //{
-
-        //    AngularPushNotification _notification = new AngularPushNotification
+        //    var payload = new PushNotificationPayload
         //    {
-        //        Title = "Test Notification",
-        //        Body = $"This is test notification",
-        //        Icon = ""
+        //        Msg = "Thank you for subscribing",
+        //        Icon = "[URL to an image to display in the notification]"
         //    };
 
-        //    string topic = null;
-        //    int? timeToLive = null;
-        //    PushMessageUrgency urgency = PushMessageUrgency.Normal;
+        //    var vapidDetails = new VapidDetails(options.Subject, options.PublicKey, options.PrivateKey);
+        //    var allSupscriptions = await _subscriptionsService.getAllSubscriptions();
 
-        //    PushMessage notification = new PushMessage(WRAPPER_START + JsonConvert.SerializeObject(_notification, _jsonSerializerSettings) + WRAPPER_END)
+        //    foreach (MBSubscription subscription in allSupscriptions)
         //    {
-        //        Topic = topic,
-        //        TimeToLive = timeToLive,
-        //        Urgency = urgency
-        //    };
-
-        //        var allSupscriptions = await _subscriptionsService.getAllSubscriptions();
-
-        //        foreach (MBSubscription subscription in allSupscriptions)
-        //        {
         //        try
         //        {
-        //            var push_Client = new PushServiceClient();
-        //            push_Client.DefaultAuthentication = new VapidAuthentication(options.PublicKey, options.PrivateKey)
-        //            {
-        //                Subject = "https://angular-aspnetmvc-pushnotifications.demo.io"
-        //            };
-        //            // fire-and-forget
-        //            push_Client.RequestPushMessageDeliveryAsync(subscription.PushSubscription, notification);
-        //        }
-        //        catch (Exception e)
+        //            var webPushSubscription = new PushSubscription(
+        //           subscription.Endpoint,
+        //           subscription.Keys["p256dh"],
+        //           subscription.Keys["auth"]);
+
+        //           _pushClient.SendNotification(webPushSubscription, "abc",vapidDetails);
+        //        }catch (WebPushException e)
         //        {
 
         //        }
+
         //    }
-        // }
+        //}
+
+
+        //this is used with lib.net.http.webpush library.
+        private SubscriptionService _subscriptionsService;
+        private PushServiceClient _pushClient;
+        private const string WRAPPER_START = "{\"notification\":";
+        private const string WRAPPER_END = "}";
+        private static readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
+        };
+        PushNotificationOptions options;
+
+        public NotificationService(PushServiceClient pushClient)
+        {
+            options = new PushNotificationOptions()
+            {
+                PublicKey = ConfigurationManager.AppSettings["Publickey"],
+                PrivateKey = ConfigurationManager.AppSettings["PrivateKey"]
+            };
+
+            _subscriptionsService = new SubscriptionService();
+            _pushClient = pushClient;
+
+            _pushClient.DefaultAuthentication = new VapidAuthentication(options.PublicKey, options.PrivateKey)
+            {
+                Subject = "https://angular-aspnetmvc-pushnotifications.demo.io"
+            };
+        }
+
+        public async Task SendNotificationsAsync()
+        {
+
+            AngularPushNotification _notification = new AngularPushNotification
+            {
+                Title = "Test Notification",
+                Body = $"This is test notification",
+                Icon = ""
+            };
+
+            string topic = null;
+            int? timeToLive = null;
+            PushMessageUrgency urgency = PushMessageUrgency.Normal;
+
+            PushMessage notification = new PushMessage(WRAPPER_START + JsonConvert.SerializeObject(_notification, _jsonSerializerSettings) + WRAPPER_END)
+            {
+                Topic = topic,
+                TimeToLive = timeToLive,
+                Urgency = urgency
+            };
+
+            var allSupscriptions = await _subscriptionsService.getAllSubscriptions();
+
+            foreach (MBSubscription subscription in allSupscriptions)
+            {
+                try
+                {
+                    var push_Client = new PushServiceClient();
+                    push_Client.DefaultAuthentication = new VapidAuthentication(options.PublicKey, options.PrivateKey)
+                    {
+                        Subject = "https://angular-aspnetmvc-pushnotifications.demo.io"
+                    };
+                    // fire-and-forget
+                    push_Client.RequestPushMessageDeliveryAsync(subscription.PushSubscription, notification);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+        }
 
 
 

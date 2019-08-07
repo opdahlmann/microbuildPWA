@@ -11,14 +11,14 @@ namespace MicroBuild.PWA.Models
     public class MBSubscription : IEntity
     {
         //this is used with lib.net.http.webpush library.
-        //public string Id { get; set; }
-        //public PushSubscription PushSubscription { get; set; }
-
-
         public string Id { get; set; }
+        public PushSubscription PushSubscription { get; set; }
 
-        public string Endpoint { get; set; }
+        //this is used with webpush library.
+        //public string Id { get; set; }
 
-        public IDictionary<string, string> Keys { get; set; }
+        //public string Endpoint { get; set; }
+
+        //public IDictionary<string, string> Keys { get; set; }
     }
 }

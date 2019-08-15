@@ -1,1 +1,19 @@
-<div><button (click) = "sendNotification()">Send Notification</button></div>
+<form>
+    <div >
+            <label> Message Title</label>
+            <input type ="text" name= "messageTitle" style="margin:5px;">
+    </div>
+    <div></div>
+    <div style="margin:5px;">
+            <label> Message Body</label>
+            <input type ="text" name= "messageBody">
+    </div>
+
+<div><button (click) = "sendNotification()"  style="margin:5px;">Send Notification</button></div>
+<div></div>
+<div><button (click) = "sendNotificationForUserGroup()" style="margin:5px;">Send Notification For User Group</button></div>
+</form>
+
+
+
+

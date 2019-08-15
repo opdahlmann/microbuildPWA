@@ -15,4 +15,7 @@ export class NotificationService {
   sendNotifcation(){
   this.http.post(environment.API_BASE +'notifications',"").subscribe();
   }
+  sendNotifcationByUserBasis(){
+    this.http.post(environment.API_BASE +'notifications/ByUserId',"").subscribe();
+  }
 }

@@ -8,71 +8,14 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using WebPush;
+
 
 namespace MicroBuild.PWA.Domain
 {
     public class NotificationService
     {
-        //this is used with library.
-        //private const string WRAPPER_START = "{\"notification\":";
-        //private const string WRAPPER_END = "}";
-        //private static readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
-        //{
-        //    ContractResolver = new CamelCasePropertyNamesContractResolver()
-        //};
-
-        //private readonly PushNotificationOptions options;
-        //private readonly WebPushClient _pushClient;
-        //private SubscriptionService _subscriptionsService;
-        //public NotificationService()
-        //{
-        //    options = new PushNotificationOptions()
-        //    {
-        //        PublicKey = ConfigurationManager.AppSettings["Publickey"],
-        //        PrivateKey = ConfigurationManager.AppSettings["PrivateKey"],
-        //        Subject = "https://angular-aspnetmvc-pushnotifications.demo.io"
-        //    };
-
-        //    _subscriptionsService = new SubscriptionService();
-        //    _pushClient = new WebPushClient();
-
-        //    _pushClient.SetVapidDetails(options.Subject, options.PublicKey, options.PrivateKey);
-
-        //}
-
-        //public async Task SendNotificationAsync()
-        //{
-        //    var payload = new PushNotificationPayload
-        //    {
-        //        Msg = "Thank you for subscribing",
-        //        Icon = "[URL to an image to display in the notification]"
-        //    };
-
-        //    var vapidDetails = new VapidDetails(options.Subject, options.PublicKey, options.PrivateKey);
-        //    var allSupscriptions = await _subscriptionsService.getAllSubscriptions();
-
-        //    foreach (MBSubscription subscription in allSupscriptions)
-        //    {
-        //        try
-        //        {
-        //            var webPushSubscription = new PushSubscription(
-        //           subscription.Endpoint,
-        //           subscription.Keys["p256dh"],
-        //           subscription.Keys["auth"]);
-
-        //           _pushClient.SendNotification(webPushSubscription, "abc",vapidDetails);
-        //        }catch (WebPushException e)
-        //        {
-
-        //        }
-
-        //    }
-        //}
-
-
-        //this is used with lib.net.http.webpush library.
         private SubscriptionService _subscriptionsService;
         private PushServiceClient _pushClient;
         private const string WRAPPER_START = "{\"notification\":";
@@ -102,38 +45,33 @@ namespace MicroBuild.PWA.Domain
 
         public async Task SendNotificationsAsync()
         {
-
-            AngularPushNotification _notification = new AngularPushNotification
-            {
-                Title = "Test Notification",
-                Body = $"This is test notification",
-                Icon = ""
-            };
-
-            string topic = null;
-            int? timeToLive = null;
-            PushMessageUrgency urgency = PushMessageUrgency.Normal;
-
-            PushMessage notification = new PushMessage(WRAPPER_START + JsonConvert.SerializeObject(_notification, _jsonSerializerSettings) + WRAPPER_END)
-            {
-                Topic = topic,
-                TimeToLive = timeToLive,
-                Urgency = urgency
-            };
-
             var allSupscriptions = await _subscriptionsService.getAllSubscriptions();
 
             foreach (MBSubscription subscription in allSupscriptions)
             {
                 try
                 {
-                    var push_Client = new PushServiceClient();
-                    push_Client.DefaultAuthentication = new VapidAuthentication(options.PublicKey, options.PrivateKey)
+                    AngularPushNotification _notification = new AngularPushNotification
                     {
-                        Subject = "https://angular-aspnetmvc-pushnotifications.demo.io"
+                        Title = "Test Notification",
+                        Body = $"This is a test notification",
+                        Icon = ""
                     };
+
+                    string topic = null;
+                    int? timeToLive = null;
+                    PushMessageUrgency urgency = PushMessageUrgency.Normal;
+
+                    PushMessage notification = new PushMessage(WRAPPER_START + JsonConvert.SerializeObject(_notification, _jsonSerializerSettings) + WRAPPER_END)
+                    {
+                        Topic = topic,
+                        TimeToLive = timeToLive,
+                        Urgency = urgency
+                    };
+
                     // fire-and-forget
-                    push_Client.RequestPushMessageDeliveryAsync(subscription.PushSubscription, notification);
+                    var result = _pushClient.RequestPushMessageDeliveryAsync(subscription.PushSubscription, notification, CancellationToken.None);
+
                 }
                 catch (Exception e)
                 {
@@ -142,7 +80,42 @@ namespace MicroBuild.PWA.Domain
             }
         }
 
+        public async Task SendNotificationsForUserGroup()
+        {
+            var allSupscriptions = await _subscriptionsService.getAllSubscriptions();
+            int val = 70;
+            var filteredUserSubscriptions = allSupscriptions.Where(x => Int32.Parse(x.UserId) > val).Select(x => x);
 
+            foreach (MBSubscription subscription in filteredUserSubscriptions)
+            {
+                try
+                {
+                    AngularPushNotification _notification = new AngularPushNotification
+                    {
+                        Title = "Test Notification",
+                        Body = $"This is a test notification",
+                        Icon = ""
+                    };
 
+                    string topic = null;
+                    int? timeToLive = null;
+                    PushMessageUrgency urgency = PushMessageUrgency.Normal;
+
+                    PushMessage notification = new PushMessage(WRAPPER_START + JsonConvert.SerializeObject(_notification, _jsonSerializerSettings) + WRAPPER_END)
+                    {
+                        Topic = topic,
+                        TimeToLive = timeToLive,
+                        Urgency = urgency
+                    };
+
+                    // fire-and-forget
+                    var result = _pushClient.RequestPushMessageDeliveryAsync(subscription.PushSubscription, notification, CancellationToken.None);
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+        }
     }
 }

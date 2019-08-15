@@ -32,5 +32,10 @@ namespace MicroBuild.PWA.Domain
         {
             return await this.supscriptionRepo.GetAllSubscriptionsAsync();
         }
+
+        public async Task <MBSubscription> getSubscriptionById(string Id)
+        {
+            return await this.supscriptionRepo.GetSubscriptionById(Id);
+        }
     }
 }

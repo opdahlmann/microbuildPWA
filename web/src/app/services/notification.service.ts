@@ -21,9 +21,7 @@ export class NotificationService {
     .catch(err => console.error('Could not subscribe to notifications', err));
   }
   sendToServer(params:PushSubscription) {
-    this.http.post(environment.API_BASE, params).subscribe();
+    this.http.post(environment.API_BASE+'subscriptions', params).subscribe();
     console.log('success');
   }
-
-  
 }

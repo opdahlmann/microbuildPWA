@@ -15,31 +15,20 @@ namespace MicroBuild.PWA.API.Controllers
 {
     public class SubscriptionController : ApiController
     {
-        //this is used with lib.net.http.webpush library.
         [HttpPost]
         [Route("subscriptions")]
-
         public async Task<HttpResponseMessage> AddSubscription(PushSubscription subscription)
         {
+            Random random = new Random();
+            int Id = random.Next(1000);
             var sub = new MBSubscription
             {
+                UserId = Id.ToString(),
                 PushSubscription = subscription
             };
             var subscriptionService = new SubscriptionService();
             var result = await subscriptionService.AddSubscription(sub);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
-
-        // //this is used with webpush library.
-        //[HttpPost]
-        //[Route("subscriptions")]
-
-        //public async Task<HttpResponseMessage> AddSubscription([FromBody]MBSubscription subscription)
-        //{
-
-        //    var subscriptionService = new SubscriptionService();
-        //    var result = await subscriptionService.AddSubscription(subscription);
-        //    return Request.CreateResponse(HttpStatusCode.OK, result);
-        //}
     }
 }

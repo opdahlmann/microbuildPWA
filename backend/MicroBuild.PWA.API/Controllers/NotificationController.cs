@@ -1,5 +1,6 @@
 ﻿using Lib.Net.Http.WebPush;
 using MicroBuild.PWA.Domain;
+using MicroBuild.PWA.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,16 @@ namespace MicroBuild.PWA.API.Controllers
         {
             var notificationService = new NotificationService(new PushServiceClient());
             await notificationService.SendNotificationsAsync();
+      
+        }
+
+        [HttpPost]
+        [Route("notifications/ByUserId")]
+        public async Task sendNotificationForUserGroup()
+        {
+            var notificationService = new NotificationService(new PushServiceClient());
+            await notificationService.SendNotificationsForUserGroup();
+
         }
     }
 }

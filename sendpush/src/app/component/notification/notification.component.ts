@@ -17,4 +17,8 @@ export class NotificationComponent implements OnInit {
   sendNotification(){
     this.notificationService.sendNotifcation();
   }
+  
+  sendNotificationForUserGroup(){
+    this.notificationService.sendNotifcationByUserBasis();
+  }
 }

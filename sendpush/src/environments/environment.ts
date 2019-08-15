@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  API_BASE:'http://localhost:59622/'
+  //API_BASE:'https://pwa.bimconnect.no/api/'
+  API_BASE:'https://934a06f4.ngrok.io/'
 };
 
 /*

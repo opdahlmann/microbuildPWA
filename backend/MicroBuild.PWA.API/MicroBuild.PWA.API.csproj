@@ -35,10 +35,10 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -60,6 +60,12 @@
     </Reference>
     <Reference Include="MicroBuild.Infrastructure.Mongo">
       <HintPath>..\lib\MicroBuild.Infrastructure.Mongo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microbuild.Infrastructure.Validation">
+      <HintPath>..\lib\Microbuild.Infrastructure.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="MicroBuild.WebApiUtils">
+      <HintPath>..\lib\MicroBuild.WebApiUtils.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MongoDB.Bson, Version=2.4.3.23, Culture=neutral, processorArchitecture=MSIL">
@@ -130,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

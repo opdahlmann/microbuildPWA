@@ -8,6 +8,7 @@ import { environment } from '../environments/environment';
 import { HomeComponent } from './component/home/home.component';
 import { InstallationService } from './services/installation.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SeperatorComponent } from './component/seperator/seperator.component';
 
 @NgModule({
   schemas: [
@@ -15,7 +16,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   ],
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    SeperatorComponent
   ],
   imports: [
     BrowserModule,

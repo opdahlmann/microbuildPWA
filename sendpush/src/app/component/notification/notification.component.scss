@@ -1,0 +1,39 @@
+.navbar{
+ padding:0.5rem 1rem;
+}
+
+
+hr {
+  margin-top: 1rem;
+  margin-bottom : 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.jumbotron {
+        background-color: var(--white);
+        padding: 2rem 2rem;
+}
+      
+h1{
+        padding-bottom :30px;
+}
+.desc {
+      margin: 1.5em 0;
+}
+
+button{
+        background-color: #DCDCDC;
+        border: none;
+        color: #B92020;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 12px;
+        font-weight:bold;
+}
+.subscribe-text   {  
+       padding-bottom :50px;
+}
+small {color:Red;}

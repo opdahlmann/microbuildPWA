@@ -15,19 +15,19 @@ namespace MicroBuild.PWA.API.Controllers
     {
         [HttpPost]
         [Route("notifications")]
-        public async Task sendNotification()
+        public async Task sendNotification(Notification notification)
         {
             var notificationService = new NotificationService(new PushServiceClient());
-            await notificationService.SendNotificationsAsync();
+            await notificationService.SendNotificationsAsync(notification);
       
         }
 
         [HttpPost]
         [Route("notifications/ByUserId")]
-        public async Task sendNotificationForUserGroup()
+        public async Task sendNotificationForUserGroup(Notification notification)
         {
             var notificationService = new NotificationService(new PushServiceClient());
-            await notificationService.SendNotificationsForUserGroup();
+            await notificationService.SendNotificationsForUserGroup(notification);
 
         }
     }

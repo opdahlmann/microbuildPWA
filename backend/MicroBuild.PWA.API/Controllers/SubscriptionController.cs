@@ -30,5 +30,15 @@ namespace MicroBuild.PWA.API.Controllers
             var result = await subscriptionService.AddSubscription(sub);
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
+
+        [HttpDelete]
+        [Route("subscriptions/delete/{Id}")]
+        public async Task<HttpResponseMessage> DeleteSubscription(string Id)
+        {
+            var subscriptionService = new SubscriptionService();
+            bool isDeleted = await subscriptionService.DeleteSubscription(Id);
+
+            return Request.CreateResponse(HttpStatusCode.OK, isDeleted);
+        }
     }
 }

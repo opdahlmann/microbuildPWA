@@ -19,14 +19,10 @@ namespace MicroBuild.PWA.Domain
            
         }
 
-        public async Task<bool> AddSubscription(MBSubscription subscription)
+        public async Task<MBSubscription> AddSubscription(MBSubscription subscription)
         {
             var result = await this.supscriptionRepo.AddSubscription(subscription);
-            if (result != null)
-            {
-                return true;
-            }
-            return false;
+            return result;
         }
         public async Task<List<MBSubscription>> getAllSubscriptions()
         {
@@ -36,6 +32,19 @@ namespace MicroBuild.PWA.Domain
         public async Task <MBSubscription> getSubscriptionById(string Id)
         {
             return await this.supscriptionRepo.GetSubscriptionById(Id);
+        }
+
+        public async Task<bool> DeleteSubscription(string Id)
+        {
+            try
+            {
+                await this.supscriptionRepo.DeleteSubscription(Id);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

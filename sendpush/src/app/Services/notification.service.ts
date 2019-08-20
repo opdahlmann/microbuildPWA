@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
+import { Notification } from '../models/notification';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,10 @@ export class NotificationService {
     private http:HttpClient
   ) { }
 
-  sendNotifcation(){
-  this.http.post(environment.API_BASE +'notifications',"").subscribe();
+  sendNotifcation(notification:Notification){
+  this.http.post(environment.API_BASE +'notifications',notification).subscribe();
   }
-  sendNotifcationByUserBasis(){
-    this.http.post(environment.API_BASE +'notifications/ByUserId',"").subscribe();
+  sendNotifcationByUserBasis(userNotification:Notification){
+    this.http.post(environment.API_BASE +'notifications/ByUserId',userNotification).subscribe();
   }
 }

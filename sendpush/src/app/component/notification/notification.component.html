@@ -1,4 +1,71 @@
-<form>
+<nav class="navbar navbar-light bg-light">
+        <div class="container">
+                <a class="navbar-brand" href="#">
+                        <object type="image/svg+xml" data="assets/vectors/nav-logo.svg"></object>
+                </a>
+        </div>
+</nav>
+
+<div class="jumbotron text-center">
+        <object type="image/svg+xml" data="assets/vectors/nav-logo-welcome.svg"></object>
+        <h1 class="display-8">Welcome to {{ title }}!</h1>
+        <br>
+</div>
+<div class="container">
+        <form [formGroup]="notificationDetailsForm" class="middle-form">
+                <div class="form-row">
+
+                        <h3 class="col">Send your Notification</h3>
+                </div>
+                <div class="form-row">
+
+                        <div class="form-group  col-md-12">
+                                <label for="Title" class="cols-sm-2 control-label">Notification Title </label>
+                                <input placeholder="Title" type="text" formControlName="title" class="form-control" [ngClass]="{'is-invalid':f.title.touched && f.title.errors }"
+                                />
+                                <small *ngIf="f.title.invalid && f.title.touched">*Title is required</small>
+                        </div>
+                </div>
+
+                <div class="form-row">
+
+                        <div class="form-group  col-md-12">
+                                <label for="Notification Body" class="cols-sm-2 control-label">Notification Body </label>
+                                <input placeholder="Notification Body" type="text" formControlName="body" class="form-control" [ngClass]="{'is-invalid':f.body.touched && f.body.errors }"
+                                />
+                                <small *ngIf="f.body.invalid && f.body.touched">*Notification Body is required</small>
+                        </div>
+                </div>
+
+                <div class="form-row">
+
+                        <div class="form-group  col-md-12">
+                                <label for="Image" class="cols-sm-2 control-label">Notification Image </label>
+                                <input placeholder="Image" type="text" formControlName="image" class="form-control" />
+                        </div>
+                </div>
+                <div class="text-center form-buttons">
+
+                        <button type="button" (click)="sendNotification()" [disabled]="notificationDetailsForm.invalid">Send Notification</button>
+                        <button type="button" (click)="sendNotificationForUserGroup()" [disabled]="notificationDetailsForm.invalid" style="margin:5px;">Send Notification For User Group</button>
+                </div>
+
+        </form>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!--<form>
     <div >
             <label> Message Title</label>
             <input type ="text" name= "messageTitle" style="margin:5px;">
@@ -12,8 +79,4 @@
 <div><button (click) = "sendNotification()"  style="margin:5px;">Send Notification</button></div>
 <div></div>
 <div><button (click) = "sendNotificationForUserGroup()" style="margin:5px;">Send Notification For User Group</button></div>
-</form>
-
-
-
-
+</form>-->

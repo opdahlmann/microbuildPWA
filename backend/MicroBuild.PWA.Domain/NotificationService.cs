@@ -43,7 +43,7 @@ namespace MicroBuild.PWA.Domain
             };
         }
 
-        public async Task SendNotificationsAsync()
+        public async Task SendNotificationsAsync(Notification notificationObject)
         {
             var allSupscriptions = await _subscriptionsService.getAllSubscriptions();
 
@@ -53,10 +53,10 @@ namespace MicroBuild.PWA.Domain
                 {
                     AngularPushNotification _notification = new AngularPushNotification
                     {
-                        Title = "Test Notification",
-                        Body = $"This is a test notification",
-                        Icon = ""
-                    };
+                        Title = notificationObject.Title,
+                        Body = $"{notificationObject.Body}",
+                        Icon = (notificationObject.Image != null) ? notificationObject.Image : ""
+                };
 
                     string topic = null;
                     int? timeToLive = null;
@@ -80,7 +80,7 @@ namespace MicroBuild.PWA.Domain
             }
         }
 
-        public async Task SendNotificationsForUserGroup()
+        public async Task SendNotificationsForUserGroup(Notification notificationObject)
         {
             var allSupscriptions = await _subscriptionsService.getAllSubscriptions();
             int val = 70;
@@ -92,9 +92,9 @@ namespace MicroBuild.PWA.Domain
                 {
                     AngularPushNotification _notification = new AngularPushNotification
                     {
-                        Title = "Test Notification",
-                        Body = $"This is a test notification",
-                        Icon = ""
+                        Title = notificationObject.Title,
+                        Body = $"{notificationObject.Body}",
+                        Icon = (notificationObject.Image != null) ? notificationObject.Image : ""
                     };
 
                     string topic = null;

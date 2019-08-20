@@ -27,8 +27,8 @@
      
     </div>
     <div class= "text-center">
-        <button *ngIf ="false" type="button"  (click) = "subscribeNotification()" >Subscribe</button>
-        <button type="button"  (click) = "unsubscribe()" >Unsubscribe</button>
+        <button *ngIf =!_isSubscribed type="button"  (click) = "subscribeNotification()" >Subscribe</button>
+        <button  *ngIf =_isSubscribed type="button"  (click) = "unsubscribe()" >Unsubscribe</button>
     </div>
   </div>
 <!-- <one-seperator     [topColor]="'var(--white)'"

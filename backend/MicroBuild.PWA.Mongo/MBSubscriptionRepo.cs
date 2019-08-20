@@ -22,5 +22,10 @@ namespace MicroBuild.PWA.Mongo
         {
             return await GenericRepository.GetById(Id);
         }
+
+        public async Task DeleteSubscription(string Id)
+        {
+            await GenericRepository.Remove(Id);
+        }
     }
 }

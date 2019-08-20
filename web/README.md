@@ -50,6 +50,13 @@ App needs to be run over https. To expose the app through https:// surge is used
 
 10. search `https://[domain]` in the browser (ex:- `https:// gullible-achieve.surge.sh`).you will see the app you designed.
 
+#special things to be done when hosting in server
+1. add this code segement under <staticContent>
+	<mimeMap fileExtension=".webmanifest" mimeType="application/json" />
+
+2. If there is a problem with manifest file related to installability, change the starturl of manifest file to ""(instead of "/")
+
+
 
 
 
